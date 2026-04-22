@@ -1,0 +1,41 @@
+data:
+  symbol: "000300"          # 沪深300指数
+  source: "akshare"
+  start_date: "20050101"
+  end_date: "20241231"
+  raw_dir: "data/raw"
+  processed_dir: "data/processed"
+
+three_line_break:
+  n: 3                      # 反转所需突破的连续线数（默认3，可选2/4/5）
+  trend_confirm: "current"  # 趋势状态定义：current=当前线颜色 / three=三连线确认
+
+candlestick:
+  patterns:                 # 启用的多头入场形态
+    - hammer               # 锤子线
+    - morning_star         # 启明星
+    - bullish_engulfing    # 多头吞噬
+    - piercing_line        # 刺穿线
+  hammer:
+    lower_shadow_ratio: 2.0   # 下影线 >= 实体 * 2
+    upper_shadow_ratio: 0.1   # 上影线 <= 实体 * 0.1
+  bullish_engulfing:
+    body_ratio: 1.0           # 白线实体完全覆盖黑线实体
+  piercing_line:
+    penetration_ratio: 0.5    # 白线收盘超过黑线实体中点
+
+backtest:
+  initial_capital: 1000000   # 初始资金（元）
+  commission: 0.0003          # 单边手续费率
+  slippage: 0.0001            # 滑点
+  entry: "next_open"          # 入场时机：次日开盘
+  exit: "next_open"           # 出场时机：次日开盘
+
+ml:
+  method: "kmeans"            # 聚类方法：kmeans / dbscan
+  n_clusters: 4               # 市场状态数量（kmeans）
+  features:                   # 聚类特征
+    - volatility_20           # 20日波动率
+    - trend_strength          # 趋势强度（三线图连续同色线数）
+    - line_length_mean        # 三线图线段平均长度
+    - adx_14                  # 趋势强度指标
