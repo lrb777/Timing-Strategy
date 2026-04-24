@@ -1,0 +1,7 @@
+services:
+  strategy:
+    build: .
+    volumes:
+      - ./data:/app/data
+      - ./results:/app/results
+    command: ["python", "fetch_data.py"]

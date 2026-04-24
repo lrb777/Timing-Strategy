@@ -77,6 +77,8 @@
 Timing-Strategy/
 ├── README.md
 ├── requirements.txt
+├── Dockerfile
+├── docker-compose.yml
 ├── .gitignore
 ├── fetch_data.py            # 数据获取入口脚本
 ├── config/
@@ -124,6 +126,20 @@ python fetch_data.py --refresh
 ```
 
 数据以 CSV 格式缓存至 `data/raw/`，再次运行直接读缓存不重复请求。数据源和时间区间在 `config/config.yaml` 的 `data` 节中配置。
+
+### Docker 环境
+
+```bash
+# 构建镜像
+docker compose build
+
+# 获取数据（data/ 目录挂载到宿主机，缓存持久化）
+docker compose run --rm strategy python fetch_data.py
+docker compose run --rm strategy python fetch_data.py --start 20200101 --end 20260101
+docker compose run --rm strategy python fetch_data.py --refresh
+```
+
+> **注意**：Docker 容器运行于 Linux，`MetaTrader5` 包不可用，数据源只支持 `yfinance`。实盘信号生成需在 Windows 本地环境运行。
 
 ---
 
