@@ -1,5 +1,6 @@
 # 数据获取
-akshare>=1.12.0
+yfinance>=0.2.40
+MetaTrader5>=5.0.45; sys_platform == "win32"
 
 # 数据处理
 pandas>=2.0.0

@@ -1,8 +1,9 @@
 data:
-  symbol: "000300"          # 沪深300指数
-  source: "akshare"
-  start_date: "20050101"
-  end_date: "20241231"
+  source: "yfinance"            # yfinance（回测/研究） | mt5（实盘）
+  yfinance_ticker: "^GSPC"      # 标普500指数
+  mt5_symbol: "US500"           # MT5 中的标普500 CFD
+  start_date: "20120806"        # US500 历史起始日期
+  end_date: null                # null = 今天
   raw_dir: "data/raw"
   processed_dir: "data/processed"
 
@@ -25,7 +26,7 @@ candlestick:
     penetration_ratio: 0.5    # 白线收盘超过黑线实体中点
 
 backtest:
-  initial_capital: 1000000   # 初始资金（元）
+  initial_capital: 100000     # 初始资金（USD）
   commission: 0.0003          # 单边手续费率
   slippage: 0.0001            # 滑点
   entry: "next_open"          # 入场时机：次日开盘

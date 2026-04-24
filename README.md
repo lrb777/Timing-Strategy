@@ -1,4 +1,4 @@
-# 基于三线反向突破图与蜡烛图形态的A股择时策略（无监督学习优化）
+# 基于三线反向突破图与蜡烛图形态的标普500择时策略（无监督学习优化）
 
 ## 策略概述
 
@@ -7,7 +7,7 @@
 - 择时标的：标普500指数（`SPX`）
 - 数据周期：日线
 - 交易方向：多头 / 空仓
-- 数据来源：akshare
+- 数据来源：yfinance（回测） / MT5（实盘）
 - 理论来源：史蒂夫·尼森《日本蜡烛图技术新解》第六章
 
 ---
@@ -78,13 +78,14 @@ Timing-Strategy/
 ├── README.md
 ├── requirements.txt
 ├── .gitignore
+├── fetch_data.py            # 数据获取入口脚本
 ├── config/
 │   └── config.yaml          # 所有策略参数（N值、形态开关、回测参数、ML参数）
 ├── data/
 │   ├── raw/                 # 原始下载数据（不入库）
 │   └── processed/           # 处理后数据（不入库）
 ├── src/
-│   ├── data/                # 数据获取模块
+│   ├── data/                # 数据获取模块（BaseDataLoader / YFinanceLoader / MT5Loader）
 │   ├── indicators/          # 三线图构建 + 蜡烛图形态识别
 │   ├── strategy/            # 主策略逻辑（信号生成 + 仓位管理）
 │   ├── backtest/            # 回测引擎
@@ -103,7 +104,26 @@ Timing-Strategy/
 pip install -r requirements.txt
 ```
 
-参数配置见 `config/config.yaml`，修改后无需改动源码。
+### 获取数据
+
+```bash
+# 使用 config.yaml 默认参数
+python fetch_data.py
+
+# 指定起始日期
+python fetch_data.py --start 20050101
+
+# 指定完整区间
+python fetch_data.py --start 20050101 --end 20241231
+
+# 切换数据源（默认 yfinance，实盘切换为 mt5）
+python fetch_data.py --source mt5
+
+# 忽略缓存，强制重新拉取最新数据
+python fetch_data.py --refresh
+```
+
+数据以 CSV 格式缓存至 `data/raw/`，再次运行直接读缓存不重复请求。数据源和时间区间在 `config/config.yaml` 的 `data` 节中配置。
 
 ---
 
