@@ -1,23 +1,23 @@
-# 数据获取
+# Data fetching
 yfinance>=0.2.40
 MetaTrader5>=5.0.45; sys_platform == "win32"
 
-# 数据处理
+# Data processing
 pandas>=2.0.0
 numpy>=1.26.0
 
-# 可视化
+# Visualization
 matplotlib>=3.8.0
 mplfinance>=0.12.10b0
 
-# 机器学习（无监督学习模块）
+# Machine learning (unsupervised learning module)
 scikit-learn>=1.4.0
 scipy>=1.12.0
 
-# 工具
+# Utilities
 pyyaml>=6.0.1
 tqdm>=4.66.0
 
-# 开发
+# Development
 jupyter>=1.0.0
 ipykernel>=6.29.0

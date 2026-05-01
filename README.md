@@ -98,8 +98,22 @@ Timing-Strategy/
 
 ## 快速开始
 
+### 环境配置
+
+**方式一：本地安装（推荐开发调试）**
+
+建议使用 conda 创建独立虚拟环境，避免污染 base 环境：
+
 ```bash
+conda create -n timing-strategy python=3.11
+conda activate timing-strategy
 pip install -r requirements.txt
+```
+
+**方式二：Docker 容器（隔离运行）**
+
+```bash
+docker-compose up --build
 ```
 
 ### 获取数据
